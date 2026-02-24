@@ -1,7 +1,9 @@
 ﻿using HarmonyLib;
-using System.IO;
 using Newtonsoft.Json;
 using System.Collections.Generic;
+using System.IO;
+using VehicleFramework.Admin;
+using System.Linq;
 
 // PURPOSE: allow custom save file sprites to be displayed
 // VALUE: High.
@@ -15,11 +17,15 @@ namespace VehicleFramework.Patches
         public const string SaveFileSpritesFileName = "SaveFileSprites";
         internal static Dictionary<string, List<string>> hasTechTypeGameInfo = new();
 
-        // This patch collects hasTechTypeGameInfo, in order to have save file sprites displayed on the save cards
-        [HarmonyPostfix]
-        [HarmonyPatch(nameof(SaveLoadManager.RegisterSaveGame))]
-        public static void SaveLoadManagerRegisterSaveGamePostfix(string slotName)
+        internal static void SerializeHasVehicleTechTypes()
         {
+            var techTypeData = VehicleManager.vehicleTypes.Select(x => x.techType).Where(x => GameInfoIcon.Has(x)).Select(x => x.AsString()).ToList();
+            VehicleFramework.SaveLoad.JsonInterface.Write(SaveFileSpritesFileName, techTypeData);
+        }
+
+        private static string GetSpritesSavePath(string slotName)
+        {
+            string savePath = "dummy";
             string subnauticaPath;
             try
             {
@@ -27,19 +33,26 @@ namespace VehicleFramework.Patches
             }
             catch (System.Exception e)
             {
-                Logger.LogException("Failed to get parent directory.", e);
-                return;
+                Logger.DebugException("SaveLoadManagerPatcher.GetSpritesSavePath failed to get parent directory.", e);
+                return savePath;
             }
-            string savePath;
             try
             {
                 savePath = Path.Combine(subnauticaPath, "SNAppData", "SavedGames", slotName, SaveLoad.JsonInterface.SaveFolderName, $"{SaveFileSpritesFileName}.json");
             }
             catch (System.Exception e)
             {
-                Logger.LogException("Failed to get parent directory.", e);
-                return;
+                Logger.DebugException("SaveLoadManagerPatcher.GetSpritesSavePath failed to get parent directory.", e);
             }
+            return savePath;
+        }
+
+        // This patch collects hasTechTypeGameInfo, in order to have save file sprites displayed on the save cards
+        [HarmonyPostfix]
+        [HarmonyPatch(nameof(SaveLoadManager.RegisterSaveGame))]
+        public static void SaveLoadManagerRegisterSaveGamePostfix(string slotName)
+        {
+            string savePath = GetSpritesSavePath(slotName);
             if (!File.Exists(savePath))
             {
                 Logger.DebugLog("SaveLoadManager.RegisterSaveGamePostfix failed to find the save game json file!");

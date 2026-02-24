@@ -6,6 +6,7 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using VehicleFramework.Admin;
+using VehicleFramework.Patches;
 using VehicleFramework.Patches.CompatibilityPatches;
 using VehicleFramework.VehicleBuilding;
 
@@ -71,6 +72,7 @@ namespace VehicleFramework
             {
                 Admin.GameStateWatcher.IsWorldLoaded = false;
                 ModuleBuilder.Reset();
+                SaveLoadManagerPatcher.SerializeHasVehicleTechTypes();
             }
             void SetWorldLoaded()
             {
