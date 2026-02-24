@@ -37,7 +37,7 @@ namespace VehicleFramework.Patches
                 {
                     if (mvType.pt == type)
                     {
-                        __instance.label.text = string.Format("{0} - {1}", mvType.name, name); ;
+                        __instance.label.text = string.Format("{0} - {1}", mvType.mv.name, mvType.mv.HullName);
                         break;
                     }
                 }
