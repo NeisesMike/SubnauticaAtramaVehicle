@@ -213,6 +213,7 @@ namespace VehicleFramework.Admin
                 Logger.Error($"ConfigRegistrar only accepts type parameters: bool, float, KeyboardShortcut, but you supplied the type parameter {typeof(T)}.");
                 yield break;
             }
+            // TODO this might be removable (show options earlier) if we can move vehicle registration to be synchronous before config loading
             // wait until the player exists, so that we're sure every vehicle is done with registration
             yield return new UnityEngine.WaitUntil(() => Player.main != null);
             ConfigFile config = configFile ?? MainPatcher.Instance.Config;

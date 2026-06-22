@@ -28,7 +28,8 @@ namespace VehicleFramework.Patches
         [HarmonyPatch(nameof(PDA.Open))]
         public static bool OpenPrefix()
         {
-            return VehicleTypes.Drone.MountedDrone == null;
+            //return VehicleTypes.Drone.MountedDrone == null;
+            return true;
         }
     }
 }

@@ -25,7 +25,7 @@ namespace VehicleFramework.VehicleTypes
         public virtual List<VehicleFloodLight>? FloodLights => null;
         public virtual List<GameObject>? TetherSources => null;
         public virtual GameObject? ControlPanel => null;
-        public virtual Transform? ControlPanelLocation => null;
+        public virtual Transform? ControlPanelLocation => null; // why is this still here?
         public virtual GameObject? Fabricator => null;
         public virtual GameObject? ColorPicker => null;
         public virtual List<Light>? InteriorLights => null;
