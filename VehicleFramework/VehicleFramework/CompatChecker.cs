@@ -9,8 +9,6 @@ namespace VehicleFramework
         {
             try
             {
-                CheckForNautilusUpdate();
-                CheckForBepInExPackUpdate();
                 CheckForFlareDurationIndicator();
                 CheckForBuildingTweaks();
                 CheckForVanillaExpanded();
@@ -35,28 +33,6 @@ namespace VehicleFramework
         #endregion
 
         #region checks
-        private static void CheckForBepInExPackUpdate()
-        {
-            // BepInEx does not itself expose a version number.
-            static Version GetBepInExAssemblyVersion()
-            {
-                var asm = typeof(BepInEx.Bootstrap.Chainloader).Assembly;
-                return asm.GetName().Version;
-            }
-            Version target = new(5, 4, 23, 4);
-            if (GetBepInExAssemblyVersion().CompareTo(target) < 0)
-            {
-                ShowWarning("There is a BepInEx Pack update available on Nexus!");
-            }
-        }
-        private static void CheckForNautilusUpdate()
-        {
-            Version target = new(Nautilus.PluginInfo.PLUGIN_VERSION);
-            if (Chainloader.PluginInfos[Nautilus.PluginInfo.PLUGIN_GUID].Metadata.Version.CompareTo(target) < 0)
-            {
-                ShowWarning("There is a Nautilus update available!");
-            }
-        }
         private static void CheckForFlareDurationIndicator()
         {
             if (Chainloader.PluginInfos.ContainsKey("com.ramune.FlareDurationIndicator"))
