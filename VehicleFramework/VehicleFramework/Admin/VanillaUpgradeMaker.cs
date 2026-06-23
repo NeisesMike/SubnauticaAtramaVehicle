@@ -18,7 +18,7 @@ namespace VehicleFramework.Admin
             }
             if (!upgrade.UnlockAtStart)
             {
-                ScanningGadget scanGadge = prefab.SetUnlock(upgrade.UnlockTechType == TechType.Fragment ? upgrade.UnlockWith : upgrade.UnlockTechType);
+                ScanningGadget scanGadge = prefab.SetUnlock(upgrade.UnlockWith);
                 if (upgrade.UnlockedSprite != null)
                 {
                     scanGadge.WithAnalysisTech(upgrade.UnlockedSprite, unlockMessage: upgrade.UnlockedMessage);
@@ -223,7 +223,6 @@ namespace VehicleFramework.Admin
             UpgradeModuleGadget gadget = prefab.SetVehicleUpgradeModule(equipType, QuickSlotType.Passive);
             AddPassiveActions(gadget, upgrade, info);
             prefab.Register();
-            upgrade.UnlockTechType = info.TechType;
             return info.TechType;
         }
         internal static void CreatePassiveModuleSeamoth(ModVehicleUpgrade upgrade, ref UpgradeTechTypes utt, bool isPdaSetup)
@@ -254,7 +253,7 @@ namespace VehicleFramework.Admin
             }
             if (!upgrade.UnlockAtStart)
             {
-                ScanningGadget scanGadge = prefab.SetUnlock(upgrade.UnlockTechType == TechType.Fragment ? upgrade.UnlockWith : upgrade.UnlockTechType);
+                ScanningGadget scanGadge = prefab.SetUnlock(upgrade.UnlockWith);
                 if (upgrade.UnlockedSprite != null)
                 {
                     scanGadge.WithAnalysisTech(upgrade.UnlockedSprite, unlockMessage: upgrade.UnlockedMessage);
@@ -263,8 +262,7 @@ namespace VehicleFramework.Admin
             prefab.AddRecipe(upgrade, VehicleType.Cyclops);
             prefab.SetEquipment(EquipmentType.CyclopsModule);
             prefab.Register();
-            upgrade.UnlockTechType = prefabInfo.TechType;
-            CyclopsUpgradeTechTypes.Add(upgrade.UnlockTechType);
+            CyclopsUpgradeTechTypes.Add(prefabInfo.TechType);
         }
         #endregion
 
@@ -277,7 +275,6 @@ namespace VehicleFramework.Admin
             AddPassiveActions(gadget, upgrade, info);
             AddSelectActions(gadget, upgrade, info);
             prefab.Register();
-            upgrade.UnlockTechType = info.TechType;
             return info.TechType;
         }
         internal static void CreateSelectModuleSeamoth(SelectableUpgrade upgrade, ref UpgradeTechTypes utt, bool isPdaSetup)
@@ -312,7 +309,6 @@ namespace VehicleFramework.Admin
             AddPassiveActions(gadget, upgrade, info);
             AddChargeActions(gadget, upgrade, info);
             prefab.Register();
-            upgrade.UnlockTechType = info.TechType;
             return info.TechType;
         }
         internal static void CreateChargeModuleSeamoth(SelectableChargeableUpgrade upgrade, ref UpgradeTechTypes utt, bool isPdaSetup)
@@ -347,7 +343,6 @@ namespace VehicleFramework.Admin
             AddPassiveActions(gadget, upgrade, info);
             AddToggleActions(gadget, info);
             prefab.Register();
-            upgrade.UnlockTechType = info.TechType;
             return info.TechType;
         }
         internal static void CreateToggleModuleSeamoth(ToggleableUpgrade upgrade, ref UpgradeTechTypes utt, bool isPdaSetup)
@@ -381,7 +376,6 @@ namespace VehicleFramework.Admin
             prefab.SetEquipment(EquipmentType.ExosuitArm)
                 .WithQuickSlotType(QuickSlotType.Selectable);
             prefab.Register();
-            upgrade.UnlockTechType = info.TechType;
             return info.TechType;
         }
         internal static void CreateArmModuleExosuit(ModVehicleArm upgrade, ref UpgradeTechTypes utt, bool isPdaSetup)

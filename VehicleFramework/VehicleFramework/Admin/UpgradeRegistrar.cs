@@ -153,14 +153,13 @@ namespace VehicleFramework.Admin
             }
             if (!upgrade.UnlockAtStart)
             {
-                var scanningGadget = module_CustomPrefab.SetUnlock(upgrade.UnlockTechType == TechType.Fragment ? upgrade.UnlockWith : upgrade.UnlockTechType);
+                var scanningGadget = module_CustomPrefab.SetUnlock(upgrade.UnlockWith);
                 if (upgrade.UnlockedSprite != null)
                 {
                     scanningGadget.WithAnalysisTech(upgrade.UnlockedSprite, unlockMessage: upgrade.UnlockedMessage);
                 }
             }
             module_CustomPrefab.Register(); // this line causes PDA voice lag by 1.5 seconds ???????
-            upgrade.UnlockTechType = module_info.TechType;
             return module_info.TechType;
         }
         private static void RegisterUpgradeMethods(ModVehicleUpgrade upgrade, UpgradeCompat compat, ref UpgradeTechTypes utt, bool isPdaRegistered)
