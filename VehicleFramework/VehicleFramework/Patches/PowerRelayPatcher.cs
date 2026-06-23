@@ -29,6 +29,7 @@ namespace VehicleFramework.Patches
         [HarmonyPatch(nameof(PowerRelay.Start))]
         public static bool StartPrefix(PowerRelay __instance)
         {
+            if (__instance == null || __instance.gameObject == null) return true;
             ModVehicle mv = __instance.gameObject.GetComponent<ModVehicle>();
             if (mv != null)
             {
@@ -41,6 +42,7 @@ namespace VehicleFramework.Patches
         [HarmonyPatch(nameof(PowerRelay.GetPower))]
         public static bool GetPowerPrefix(PowerRelay __instance, ref float __result)
         {
+            if (__instance == null || __instance.gameObject == null) return true;
             ModVehicle mv = __instance.gameObject.GetComponent<ModVehicle>();
             if (mv != null)
             {
@@ -75,6 +77,7 @@ namespace VehicleFramework.Patches
         [HarmonyPatch(nameof(PowerRelay.ModifyPower))]
         public static bool PowerRelayModifyPowerPrefix(PowerRelay __instance, float amount, ref float modified, ref bool __result)
         {
+            if (__instance == null || __instance.gameObject == null) return true;
             ModVehicle mv = __instance.gameObject.GetComponent<ModVehicle>();
             if (mv == null)
             {
