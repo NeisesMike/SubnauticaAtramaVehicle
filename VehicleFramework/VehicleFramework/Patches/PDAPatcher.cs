@@ -23,13 +23,5 @@ namespace VehicleFramework.Patches
                 uGUI.main.quickSlots.SetTarget(null);
             }
         }
-
-        [HarmonyPrefix]
-        [HarmonyPatch(nameof(PDA.Open))]
-        public static bool OpenPrefix()
-        {
-            //return VehicleTypes.Drone.MountedDrone == null;
-            return true;
-        }
     }
 }
