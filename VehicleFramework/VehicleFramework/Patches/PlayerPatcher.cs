@@ -22,6 +22,7 @@ namespace VehicleFramework.Patches
         public static void AwakePostfix()
         {
             new GameObject().AddComponent<Admin.ConsoleCommands>();
+            new GameObject().AddComponent<MiscComponents.VFUnlocker>();
             Admin.GameStateWatcher.IsPlayerAwaked = true;
             Assets.FragmentManager.AddScannerDataEntries();
             VehicleBuilding.HUDBuilder.DecideBuildHUD();

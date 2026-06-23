@@ -34,6 +34,7 @@ namespace VehicleFramework.Admin
     }
     public static class UpgradeRegistrar
     {
+        internal static Dictionary<ModVehicleUpgrade, UpgradeTechTypes> RegisteredUpgrades = new();
         public static Dictionary<string, Sprite> UpgradeIcons { get; private set; } = new(); // indexed by upgrade.ClassId
         internal static List<Action<AddActionParams>> OnAddActions = new();
         internal static List<Action<ToggleActionParams>> OnToggleActions = new();
@@ -61,6 +62,7 @@ namespace VehicleFramework.Admin
                 }
                 RegisterUpgradeMethods(upgrade, compat, ref utt, isPdaRegistered);
                 upgrade.TechTypes = utt;
+                RegisteredUpgrades.Add(upgrade, utt);
                 return utt;
             }
             else
